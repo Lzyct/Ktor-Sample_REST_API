@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_sample" default="compile.module.sample">
+  <dirname property="module.sample.basedir" file="${ant.file.module_sample}"/>
+  
+  <property name="module.jdk.home.sample" value=""/>
+  <property name="module.jdk.bin.sample" value=""/>
+  <property name="module.jdk.classpath.sample" value=""/>
+  
+  <property name="compiler.args.sample" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="sample.output.dir" value="${module.sample.basedir}/out/production/Sample"/>
+  <property name="sample.testoutput.dir" value="${module.sample.basedir}/out/test/Sample"/>
+  
+  <path id="sample.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="sample.module.production.classpath"/>
+  
+  <path id="sample.runtime.production.module.classpath">
+    <pathelement location="${sample.output.dir}"/>
+  </path>
+  
+  <path id="sample.module.classpath">
+    <pathelement location="${sample.output.dir}"/>
+  </path>
+  
+  <path id="sample.runtime.module.classpath">
+    <pathelement location="${sample.testoutput.dir}"/>
+    <pathelement location="${sample.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.sample">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.sample">
+    <patternset refid="excluded.from.module.sample"/>
+  </patternset>
+  
+  
+  <target name="compile.module.sample" depends="compile.module.sample.production,compile.module.sample.tests" description="Compile module Sample"/>
+  
+  <target name="compile.module.sample.production" depends="register.custom.compilers" description="Compile module Sample; production classes"/>
+  
+  <target name="compile.module.sample.tests" depends="register.custom.compilers,compile.module.sample.production" description="compile module Sample; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.sample" description="cleanup module">
+    <delete dir="${sample.output.dir}"/>
+    <delete dir="${sample.testoutput.dir}"/>
+  </target>
+</project>

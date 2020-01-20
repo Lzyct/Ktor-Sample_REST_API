@@ -1,9 +1,6 @@
 package com.tuxdev
 
-import com.tuxdev.model.Diagnostic
-import com.tuxdev.model.Gebetan
-import com.tuxdev.model.ResponseListSample
-import com.tuxdev.model.ResponseSample
+import com.tuxdev.model.*
 import io.ktor.application.*
 import io.ktor.features.ContentNegotiation
 import io.ktor.features.StatusPages
@@ -64,14 +61,14 @@ fun Application.myModule() {
                     )
                     call.respond(
                         HttpStatusCode.OK,
-                        Diagnostic(HttpStatusCode.OK.value, "${postParameters["nama"]} berhasil ditambahkan")
+                        ResponseDiagnostic(Diagnostic(HttpStatusCode.OK.value, "${postParameters["nama"]} berhasil ditambahkan"))
                     )
 
                 } catch (e: Exception) {
                     print(e)
                     call.respond(
                         HttpStatusCode.BadRequest,
-                        Diagnostic(HttpStatusCode.BadRequest.value, "Nama tidak boleh kosong")
+                        ResponseDiagnostic(Diagnostic(HttpStatusCode.BadRequest.value, "Nama tidak boleh kosong"))
                     )
                 }
 
@@ -93,7 +90,7 @@ fun Application.myModule() {
                 if (detail == null)
                     call.respond(
                         HttpStatusCode.BadRequest,
-                        Diagnostic(HttpStatusCode.BadRequest.value, "Gebetan tidak ditemukan T.T")
+                        ResponseDiagnostic(Diagnostic(HttpStatusCode.BadRequest.value, "Gebetan tidak ditemukan T.T"))
                     )
                 else call.respond(
                     status = HttpStatusCode.OK,
@@ -116,13 +113,13 @@ fun Application.myModule() {
 
                     call.respond(
                         HttpStatusCode.OK,
-                        Diagnostic(HttpStatusCode.OK.value, "$namaLama berhasil diperbarui menjadi $namaBaru")
+                       ResponseDiagnostic( Diagnostic(HttpStatusCode.OK.value, "$namaLama berhasil diperbarui menjadi $namaBaru"))
                     )
                 } catch (e: Exception) {
                     print(e)
                     call.respond(
                         HttpStatusCode.BadRequest,
-                        Diagnostic(HttpStatusCode.BadRequest.value, "ID / Nama tidak boleh kosong")
+                       ResponseDiagnostic( Diagnostic(HttpStatusCode.BadRequest.value, "ID / Nama tidak boleh kosong"))
                     )
                 }
             }
@@ -136,17 +133,17 @@ fun Application.myModule() {
                     if(!isRemove)
                         call.respond(
                             HttpStatusCode.BadRequest,
-                            Diagnostic(HttpStatusCode.BadRequest.value, "Gebetan tidak ditemukan T.T")
+                            ResponseDiagnostic(Diagnostic(HttpStatusCode.BadRequest.value, "Gebetan tidak ditemukan T.T"))
                         )
 
                     call.respond(
                         HttpStatusCode.OK,
-                        Diagnostic(HttpStatusCode.OK.value, "$nama berhasil dihapus dari kenangan T.T")
+                        ResponseDiagnostic(Diagnostic(HttpStatusCode.OK.value, "$nama berhasil dihapus dari kenangan T.T"))
                     )
                 } catch (e: Exception) {
                     call.respond(
                         HttpStatusCode.BadRequest,
-                        Diagnostic(HttpStatusCode.BadRequest.value, "ID tidak boleh kosong")
+                        ResponseDiagnostic(Diagnostic(HttpStatusCode.BadRequest.value, "ID tidak boleh kosong"))
                     )
                 }
             }
